@@ -21,7 +21,8 @@
         "yii2mod/yii2-google-maps-markers": "*",
         "slavkovrn/yii2-visualize": "^1.0",
         "scotthuangzl/yii2-google-chart": "dev-master",
-        "onmotion/yii2-widget-apexcharts": "^1.0"
+        "onmotion/yii2-widget-apexcharts": "^1.0",
+        "kartik-v/yii2-widgets": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -30,9 +30,10 @@ class Crates extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_company', 'content'], 'required'],
+            [['id_company', 'content', 'active'], 'required'],
             [['id_company'], 'integer'],
             [['content'], 'string'],
+            [['active'], 'boolean'],
             [['id_company'], 'exist', 'skipOnError' => true, 'targetClass' => Companies::className(), 'targetAttribute' => ['id_company' => 'id']],
         ];
     }
@@ -46,6 +47,7 @@ class Crates extends \yii\db\ActiveRecord
             'id' => 'Crate ID',
             'id_company' => 'Company',
             'content' => 'Content',
+            'active' => 'Active'
         ];
     }
 

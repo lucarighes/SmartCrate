@@ -52,6 +52,7 @@ $config = [
         ],
         */
     ],
+    'name'=>'SmartCrate Manager',
     'params' => $params,
 ];
 

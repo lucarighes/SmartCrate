@@ -21,6 +21,7 @@ class CratesSearch extends Crates
         return [
             [['id', 'id_company'], 'integer'],
             [['content'], 'safe'],
+            [['active'], 'boolean'],
         ];
     }
 
