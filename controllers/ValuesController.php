@@ -8,6 +8,7 @@ use app\models\ValuesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * ValuesController implements the CRUD actions for Values model.
@@ -73,6 +74,32 @@ class ValuesController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
+
+    public function actionCreateApi()
+    {
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+
+        $model = new Values();
+
+        $model->scenario = Values:: SCENARIO_CREATE;
+        $model->attributes = Yii::$app->request->post();
+
+        if($model->validate())
+        {
+            $model->save();
+            return array('status' => true, 'data'=> 'Crate record is successfully updated');
+        }
+        else
+        {
+            return array('status'=>false,'data'=>$model->getErrors());    
+        }
     }
 
     /**

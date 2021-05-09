@@ -43,14 +43,17 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
+        
+        /*'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class'=>'yii\rest\UrlRule',  
+				 'controller'=>'api',            
+                ]
             ],
-        ],
-        */
+        ],*/
+        
     ],
     'name'=>'SmartCrate Manager',
     'params' => $params,

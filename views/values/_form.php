@@ -24,6 +24,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'oxigen')->textInput() ?>
 
+    <?= $form->field($model, 'longitude')->textInput() ?>
+
+    <?= $form->field($model, 'latitude')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

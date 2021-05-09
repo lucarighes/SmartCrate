@@ -20,6 +20,8 @@ use Yii;
  */
 class Values extends \yii\db\ActiveRecord
 {
+    const SCENARIO_CREATE = 'create';
+
     /**
      * {@inheritdoc}
      */
@@ -34,11 +36,12 @@ class Values extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_crate', 'temperature', 'humidity', 'position', 'hydrogen', 'oxigen'], 'required'],
+           // [['id_crate', 'temperature', 'humidity', 'latitude', 'longitude', 'hydrogen', 'oxigen'], 'required'],
+            [['temperature, humidity'], 'required'],
             [['id_crate', 'humidity', 'hydrogen', 'oxigen'], 'integer'],
             [['date'], 'safe'],
             [['temperature'], 'number'],
-            [['position'], 'string'],
+            [['longitude', 'latitude'], 'double'],
             [['id_crate'], 'exist', 'skipOnError' => true, 'targetClass' => Crates::className(), 'targetAttribute' => ['id_crate' => 'id']],
         ];
     }
@@ -54,12 +57,19 @@ class Values extends \yii\db\ActiveRecord
             'date' => 'Date',
             'temperature' => 'Temperature',
             'humidity' => 'Humidity',
-            'position' => 'Position',
+            'longitude' => 'Longitude',
+            'latitude' => 'Latitude',
             'hydrogen' => 'Hydrogen',
             'oxigen' => 'Oxigen',
         ];
     }
 
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['create'] = ['id_crate','date','temperature', 'humidity', 'longitude', 'latitude', 'hydrogen', 'oxigen']; 
+        return $scenarios; 
+    }
     /**
      * Gets query for [[Crate]].
      *

@@ -197,7 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <br><br>
     <hr style="border-top: 2px solid #bbb; width:100%">
     <br><br>
-
+    
     <div id="map" style="width:100%;height:400px;">
 
     </div>
@@ -263,7 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     </script>
     <script 
-        src="https://maps.googleapis.com/maps/api/js?key=<?php echo ""; ?>&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=<?php echo "AIzaSyB4C7lr94XfmyYqwZvF0H0u8AITKQoLimw"; ?>&callback=initMap">
     </script>
   
   <br><br>
