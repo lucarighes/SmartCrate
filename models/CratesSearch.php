@@ -43,10 +43,13 @@ class CratesSearch extends Crates
      */
     public function search($params)
     {
+        $id = \Yii::$app->user->identity->id_company;
+
         $query = (new Query())
             ->select('crates.id, crates.content, companies.company')
             ->from('crates')
             ->leftJoin('companies', '`companies`.`id` = `crates`.`id_company`')
+            ->where(['`crates`.`id_company`' => $id])
             ->all();
 
         return new ArrayDataProvider(['allModels' => $query]);
