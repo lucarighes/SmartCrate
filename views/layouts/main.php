@@ -39,7 +39,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Crate', 'url' => ['/crates/index']],
+           
+            ['label' => 'Crate', 'url' => ['/crates/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Users', 'url' => ['/users/index'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->owner],
+
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

@@ -263,7 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     </script>
     <script 
-        src="https://maps.googleapis.com/maps/api/js?key=<?php echo ""; ?>&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=<?php echo "AIzaSyDZXgyqyBxSBBrrzDWeRBn-ZuHBIZ7T9pQ"; ?>&callback=initMap">
     </script>
   
   <br><br>

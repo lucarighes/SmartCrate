@@ -24,7 +24,8 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['username', 'password'], 'required'],
-            [['username', 'password'], 'string', 'max' => 100]            
+            [['username', 'password'], 'string', 'max' => 100],  
+            [['id_company', 'owner'], 'integer']          
         ];
     }
 
@@ -37,7 +38,8 @@ class User extends \yii\db\ActiveRecord  implements IdentityInterface
             'id' => 'id',
             'username' => 'Username',
             'password' => 'Password',
-            'id_company' => 'Company'
+            'id_company' => 'Company',
+            'owner' => 'Owner'
         ];
     } 
     
