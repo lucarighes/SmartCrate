@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
@@ -13,9 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->username) ?></h1>
 
     <p>
+        <?= Html::a('Add crate', ['invoices/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -26,16 +29,43 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //'id',
-            'username',
-            //'password',
-            'id_company',
-            //'auth_key',
-            //'owner',
+    
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'layout'=> "{items}\n{summary}\n{pager}",
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id_invoice',
+            'date',
+            'customer',
+            'crate',
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'contentOptions' => ['style' => 'width: 8.7%'],
+                'template' => '      {view}          {update}           {delete}',
+                'buttons'=>[
+                    'view'=>function ($url, $model) {
+                        $new_url = 'index.php?r=invoices%2Fview&id_invoice='.$model['id_invoice'].'&crate='.$model['crate'];
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $new_url);
+                    },
+                    'update'=>function ($url, $model) {
+                        $new_url = 'index.php?r=invoices%2Fupdate&id_invoice='.$model['id_invoice'].'&crate='.$model['crate'];
+                        return Html::a('<span class="glyphicon glyphicon-wrench"></span>', $new_url);
+                    },
+                    'delete'=>function ($url, $model) {
+                        $new_url = 'index.php?r=invoices%2Fdelete&id_invoice='.$model['id_invoice'].'&crate='.$model['crate'];
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $new_url, 
+                            ['data' => 
+                                ['confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),'method' => 'post',]
+                            ]);
+                    },
+                ]
+            ],
         ],
-    ]) ?>
+    ]); ?>
 
 </div>

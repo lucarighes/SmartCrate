@@ -42,7 +42,7 @@ AppAsset::register($this);
            
             ['label' => 'Crate', 'url' => ['/crates/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Users', 'url' => ['/users/index'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->owner],
-
+            ['label' => 'Invoices', 'url' => ['/invoices/index'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->owner],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

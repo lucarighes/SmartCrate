@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Users;
-use app\models\UsersSearch;
+use app\models\Invoices;
+use app\models\InvoicesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\InvoicesSearch;
 
 /**
- * UsersController implements the CRUD actions for Users model.
+ * InvoicesController implements the CRUD actions for Invoices model.
  */
-class UsersController extends Controller
+class InvoicesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,15 +30,13 @@ class UsersController extends Controller
     }
 
     /**
-     * Lists all Users models.
+     * Lists all Invoices models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $id = Yii::$app->user->identity->id_company;
-        $searchModel = new UsersSearch();
+        $searchModel = new InvoicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['id_company' => $id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -48,39 +45,30 @@ class UsersController extends Controller
     }
 
     /**
-     * Displays a single Users model.
-     * @param integer $id
+     * Displays a single Invoices model.
+     * @param integer $id_invoice
+     * @param integer $crate
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id_invoice, $crate)
     {
-        $searchModel = new InvoicesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['customer' => $id]);
-
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $this->findModel($id_invoice, $crate),
         ]);
     }
 
     /**
-     * Creates a new Users model.
+     * Creates a new Invoices model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Users();
-        $id = Yii::$app->user->identity->id_company;
-        $model->id_company = $id;
-        $model->auth_key = NULL;
-        $model->owner = 0;
+        $model = new Invoices();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id_invoice' => $model->id_invoice, 'crate' => $model->crate]);
         }
 
         return $this->render('create', [
@@ -89,18 +77,19 @@ class UsersController extends Controller
     }
 
     /**
-     * Updates an existing Users model.
+     * Updates an existing Invoices model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $id_invoice
+     * @param integer $crate
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id_invoice, $crate)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id_invoice, $crate);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id_invoice' => $model->id_invoice, 'crate' => $model->crate]);
         }
 
         return $this->render('update', [
@@ -109,29 +98,31 @@ class UsersController extends Controller
     }
 
     /**
-     * Deletes an existing Users model.
+     * Deletes an existing Invoices model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $id_invoice
+     * @param integer $crate
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id_invoice, $crate)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id_invoice, $crate)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Users model based on its primary key value.
+     * Finds the Invoices model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Users the loaded model
+     * @param integer $id_invoice
+     * @param integer $crate
+     * @return Invoices the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id_invoice, $crate)
     {
-        if (($model = Users::findOne($id)) !== null) {
+        if (($model = Invoices::findOne(['id_invoice' => $id_invoice, 'crate' => $crate])) !== null) {
             return $model;
         }
 
