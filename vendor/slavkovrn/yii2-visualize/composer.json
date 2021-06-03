@@ -1,0 +1,32 @@
+{
+    "name": "slavkovrn/yii2-visualize",
+    "description": "jQuery Visualize is a extension for Yii 2.0 framework to draw charts for presentation",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "yii 2", "jQuery Visualize chart"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Viacheslav Kolesnikov",
+            "email": "slavko.chita@gmail.com",
+            "homepage": "http://yii2.kadastrcard.ru"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/SlavKoVrn/yii2-visualize/issues?state=open",
+        "source": "https://github.com/SlavKoVrn/yii2-visualize"
+    },
+    "require": {
+        "yiisoft/yii2": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "slavkovrn\\visualize\\": "src/"
+        }
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
