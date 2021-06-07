@@ -3,17 +3,18 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Users;
-use app\models\UsersSearch;
+use app\models\Alerts;
+use app\models\AlertsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\InvoicesSearch;
+use app\models\ValuesSearch;
+
 
 /**
- * UsersController implements the CRUD actions for Users model.
+ * AlertsController implements the CRUD actions for Alerts model.
  */
-class UsersController extends Controller
+class AlertsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,15 +32,13 @@ class UsersController extends Controller
     }
 
     /**
-     * Lists all Users models.
+     * Lists all Alerts models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $id = Yii::$app->user->identity->id_company;
-        $searchModel = new UsersSearch();
+        $searchModel = new AlertsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['id_company' => $id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -48,38 +47,32 @@ class UsersController extends Controller
     }
 
     /**
-     * Displays a single Users model.
+     * Displays a single Alerts model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $searchModel = new InvoicesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['customer' => $id]);
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $searchModel = new ValuesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+        
+        return $this->render('../values/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Creates a new Users model.
+     * Creates a new Alerts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Users();
-        $id = Yii::$app->user->identity->id_company;
-        $model->id_company = $id;
-        $model->auth_key = NULL;
-        $model->owner = 0;
+        $model = new Alerts();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -89,7 +82,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Updates an existing Users model.
+     * Updates an existing Alerts model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -102,14 +95,14 @@ class UsersController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
-
+        
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Users model.
+     * Deletes an existing Alerts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -123,15 +116,15 @@ class UsersController extends Controller
     }
 
     /**
-     * Finds the Users model based on its primary key value.
+     * Finds the Alerts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Users the loaded model
+     * @return Alerts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Users::findOne($id)) !== null) {
+        if (($model = Alerts::findOne($id)) !== null) {
             return $model;
         }
 

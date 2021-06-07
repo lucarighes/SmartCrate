@@ -35,16 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
-                'contentOptions' => ['style' => 'width: 8.7%'],
-                'template' => '      {view}          {update}',
+                'headerOptions' => ['style' => 'width:18%'],
+                'template' => '{view}           {update}',
                 'buttons'=>[
                     'view'=>function ($url, $model) {
                         $new_url = 'index.php?r=crates%2Fview&id='.$model['id'];
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $new_url);
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span> View', $new_url, ['title' => 'view','class'=>'btn btn-success']);
                     },
                     'update'=>function ($url, $model) {
                         $new_url = 'index.php?r=crates%2Fupdate&id='.$model['id'];
-                        return Html::a('<span class="glyphicon glyphicon-wrench"></span>', $new_url);
+                        return Html::a('<span class="glyphicon glyphicon-wrench"></span> Update', $new_url, ['title' => 'edit','class'=>'btn btn-info']);
                     },
                 ]
             ],
