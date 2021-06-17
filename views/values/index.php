@@ -210,7 +210,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var centerCoordinates = new google.maps.LatLng(<?= $dataProvider->models[0]->latitude; ?>, <?= $dataProvider->models[0]->longitude; ?>);
             var defaultOptions = {
                 center : centerCoordinates,
-                zoom : 13
+                zoom : 10
             }
             map = new google.maps.Map(mapLayer, defaultOptions);
             geocoder = new google.maps.Geocoder();
